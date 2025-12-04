@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pergunta importante 😈</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .buttons {
+            position: relative;
+            height: 200px;
+            width: 100%;
+        }
+
+        button {
+            width: 120px;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            position: absolute;
+            transition: 0.15s ease;
+        }
+
+        #yesBtn {
+            background: #00c853;
+            color: white;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #noBtn {
+            background: #d50000;
+            color: white;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @media (max-width: 480px) {
+            .buttons {
+                height: 240px;
+            }
+
+            button {
+                width: 115px;
+                height: 50px;
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Vamos Fazer **** 😈 hoje ?</h1>
+
+        <div class="buttons" id="area">
+            <button id="yesBtn" onclick="irProVideo()">Sim</button>
+            <button id="noBtn">Não</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const area = document.getElementById("area");
+
+        function moveNo() {
+            const areaRect = area.getBoundingClientRect();
+            const yesRect = yesBtn.getBoundingClientRect();
+
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            let safe = false;
+            let newLeft, newTop;
+
+            while (!safe) {
+                newLeft = Math.random() * (areaRect.width - btnWidth);
+                newTop = Math.random() * (areaRect.height - btnHeight);
+
+                const noFuture = {
+                    left: areaRect.left + newLeft,
+                    right: areaRect.left + newLeft + btnWidth,
+                    top: areaRect.top + newTop,
+                    bottom: areaRect.top + newTop + btnHeight,
+                };
+
+                const margin = 80; // AGORA ELE FOGE BEM MAIS
+
+                if (
+                    noFuture.right < (yesRect.left - margin) ||
+                    noFuture.left > (yesRect.right + margin) ||
+                    noFuture.bottom < (yesRect.top - margin) ||
+                    noFuture.top > (yesRect.bottom + margin)
+                ) {
+                    safe = true;
+                }
+            }
+
+            noBtn.style.left = newLeft + "px";
+            noBtn.style.top = newTop + "px";
+        }
+
+        // foge no clique
+        noBtn.addEventListener("click", moveNo);
+
+        // foge quando chega perto (desktop)
+        noBtn.addEventListener("mouseenter", moveNo);
+
+        // foge quando toca (mobile)
+        noBtn.addEventListener("touchstart", moveNo);
+
+        function irProVideo() {
+            window.location.href = "https://www.youtube.com/shorts/c0Jmkm02sDI";
+        }
+    </script>
+
+</body>
+
+</html>
